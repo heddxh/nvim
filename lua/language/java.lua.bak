@@ -1,0 +1,72 @@
+local M = {}
+
+M.mason_pkg = {
+  'jdtls',
+  'java-debug-adpater',
+  'java-tesy',
+  'lombok-nightly',
+}
+
+M.spec = {
+  --'nvim-java/nvim-java',
+  dir = '/home/heddxh/workspace/code/nvim-java',
+  name = 'nvim-java',
+  ft = 'java',
+  -- NOTE: Manually generate help tags for local plugins
+  build = ':helptags /home/heddxh/workspace/code/nvim-java/doc/',
+  dependencies = {
+    'nvim-java/lua-async-await',
+    'nvim-java/nvim-java-refactor',
+    'nvim-java/nvim-java-core',
+    'nvim-java/nvim-java-test',
+    'nvim-java/nvim-java-dap',
+    'MunifTanjim/nui.nvim',
+    'neovim/nvim-lspconfig',
+    'mfussenegger/nvim-dap',
+    {
+      'JavaHello/spring-boot.nvim',
+      commit = '218c0c26c14d99feca778e4d13f5ec3e8b1b60f0',
+    },
+    {
+      'williamboman/mason.nvim',
+      opts = {
+        registries = {
+          'github:nvim-java/mason-registry',
+          'github:mason-org/mason-registry',
+        },
+      },
+    },
+  },
+  config = function()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+    require('java').setup {
+      -- load java test plugins
+      java_test = {
+        enable = true,
+      },
+      -- load java debugger plugins
+      java_debug_adapter = {
+        enable = true,
+      },
+      spring_boot_tools = {
+        enable = false,
+      },
+      jdk = {
+        -- install jdk using mason.nvim
+        auto_install = false,
+      },
+    }
+
+    -- Must load after nvim-java
+    require('lspconfig').jdtls.setup {
+      init_options = {
+        documentSymbol = { hierarchicalDocumentSymbolSupport = true },
+      },
+      capabilities = capabilities,
+    }
+  end,
+}
+
+return M
