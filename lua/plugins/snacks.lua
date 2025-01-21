@@ -123,7 +123,8 @@ return {
       {
         '<leader><space>',
         function()
-          Snacks.picker.buffers()
+          ---@diagnostic disable-next-line: missing-fields
+          Snacks.picker.buffers { nofile = true }
         end,
         desc = 'Buffers',
       },
@@ -177,9 +178,9 @@ return {
         end,
         desc = 'Find Recent',
       },
-      -- git
+      -- Git
       {
-        '<leader>gc',
+        '<leader>gl',
         function()
           Snacks.picker.git_log()
         end,
@@ -191,6 +192,34 @@ return {
           Snacks.picker.git_status()
         end,
         desc = 'Git Status',
+      },
+      {
+        '<leader>gb',
+        function()
+          Snacks.picker.git_log_line()
+        end,
+        desc = 'Git Blame Line',
+      },
+      {
+        '<leader>gd',
+        function()
+          Snacks.picker.git_diff()
+        end,
+        desc = 'Git Diff',
+      },
+      {
+        '<leader>gf',
+        function()
+          Snacks.picker.git_log_file()
+        end,
+        desc = 'Lazygit',
+      },
+      {
+        '<leader>gg',
+        function()
+          Snacks.lazygit()
+        end,
+        desc = 'Lazygit',
       },
       -- Grep
       {
@@ -259,19 +288,19 @@ return {
         desc = 'Commands',
       },
       {
-        '<leader>sd',
+        '<leader>sD',
         function()
           Snacks.picker.diagnostics()
         end,
-        desc = 'Diagnostics',
+        desc = 'Diagnostics Current Buffer',
       },
       {
-        '<leader>sD',
+        '<leader>sd',
         function()
           ---@diagnostic disable-next-line: undefined-field
           Snacks.picker.diagnostics_buffer()
         end,
-        desc = 'Diagnostics Current Buffer',
+        desc = 'Diagnostics',
       },
       {
         '<leader>sh',
