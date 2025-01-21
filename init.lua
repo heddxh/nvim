@@ -132,6 +132,9 @@ o.tabstop = indent
 o.softtabstop = indent
 o.shiftwidth = indent
 
+-- Match < and >
+o.mps:append { '<:>' }
+
 local map = vim.keymap.set
 -- Remove search highlighting
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
