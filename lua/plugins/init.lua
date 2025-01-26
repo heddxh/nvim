@@ -197,6 +197,12 @@ return {
           MiniFiles.open()
         end,
       },
+      {
+        '<leader>\\',
+        function()
+          MiniFiles.open(vim.api.nvim_buf_get_name(0))
+        end,
+      },
     },
     config = function()
       require('mini.surround').setup()
@@ -207,7 +213,7 @@ return {
       }
       MiniIcons.mock_nvim_web_devicons()
       require('mini.files').setup {
-        windows = { preview = true },
+        windows = { preview = true, width_preview = 40 },
       }
     end,
   },
