@@ -18,7 +18,6 @@ return {
           separator_style = 'think',
           buffer_close_icon = '',
           diagnostics = 'nvim_lsp',
-          color_icons = false,
         },
       }
     end,
