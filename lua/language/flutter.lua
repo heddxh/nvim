@@ -19,7 +19,7 @@ return {
           o.shiftwidth = indent
 
           -- Flutter outline key mapping
-          vim.keymap.set('n', '<leader>\\', '<cmd>FlutterOutlineToggle<CR>', { desc = 'Toggle flutter outline', buffer = ev.buf })
+          vim.keymap.set('n', 'gO', '<cmd>FlutterOutlineToggle<CR>', { desc = 'Toggle flutter outline', buffer = ev.buf })
         end,
         desc = 'Autocmd for flutter and dart',
       })
