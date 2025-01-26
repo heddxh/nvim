@@ -18,9 +18,17 @@ return {
     config = true,
     enabled = false,
   },
-  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000, opts = {
-    transparent_background = true,
-  } },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    opts = {
+      transparent_background = true,
+      integrations = {
+        aerial = true,
+      },
+    },
+  },
   -- 今日は飽きた
 
   {
