@@ -151,8 +151,12 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- Insert blank line
 map('n', '<A-o>', 'o<Esc>', { desc = 'Insert a blank line below' })
 map('n', '<A-O>', 'O<Esc>', { desc = 'Insert a blank line above' })
+
+-- Set keymapping for <C-i> and Tab separately
+map('n', '<C-i>', '<C-i>')
 -- Using tab to jump across windows
 map('n', '<Tab>', '<C-w><C-w>', { desc = 'Jump across windows' })
+
 -- Move lines and keep visual
 ---@see https://github.com/kobbikobb/move-lines.nvim
 map('v', '<C-j>', ":m '>+1<CR>gv=gv", { desc = 'Move lines up' })
