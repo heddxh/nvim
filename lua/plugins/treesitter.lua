@@ -33,14 +33,32 @@ return {
       select = {
         enable = true,
         keymaps = {
-          ['af'] = { query = '@function.outer', desc = 'Select Function Outside' },
-          ['if'] = { query = '@function.inner', desc = 'Select Function Inside' },
+          ['af'] = {
+            query = '@function.outer',
+            desc = 'Select Function Outside',
+          },
+          ['if'] = {
+            query = '@function.inner',
+            desc = 'Select Function Inside',
+          },
           ['ac'] = { query = '@class.outer', desc = 'Select Class Outside' },
           ['ic'] = { query = '@class.inner', desc = 'Select Class Inside' },
-          ['ap'] = { query = '@parameter.outer', desc = 'Select Parameter Outside' },
-          ['ip'] = { query = '@parameter.inner', desc = 'Select Parameter Inside' },
-          ['aa'] = { query = '@attribute.outer', desc = 'Select Attribute Outside' },
-          ['ia'] = { query = '@attribute.inner', desc = 'Select Attribute Inside' },
+          ['ap'] = {
+            query = '@parameter.outer',
+            desc = 'Select Parameter Outside',
+          },
+          ['ip'] = {
+            query = '@parameter.inner',
+            desc = 'Select Parameter Inside',
+          },
+          ['aa'] = {
+            query = '@attribute.outer',
+            desc = 'Select Attribute Outside',
+          },
+          ['ia'] = {
+            query = '@attribute.inner',
+            desc = 'Select Attribute Inside',
+          },
         },
       },
     },
