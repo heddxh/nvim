@@ -15,6 +15,7 @@ return {
       -- 'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'b0o/SchemaStore.nvim',
       {
         'j-hui/fidget.nvim',
         enabled = false,
@@ -79,6 +80,14 @@ return {
             },
           },
         },
+        jsonls = {
+          settings = {
+            json = {
+              -- schemas = require('schemastore').json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
       },
     },
     config = function(_, opts)
@@ -111,9 +120,7 @@ return {
               group = augroup,
               callback = function(event)
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
-                if not client or client.name ~= server then
-                  return
-                end
+                if not client or client.name ~= server then return end
                 server_opts.autocmd(client)
               end,
             })
@@ -170,24 +177,36 @@ return {
               { buffer = event.buf, desc = 'LSP: ' .. desc }
             )
           end
-          map('gd', function()
-            Snacks.picker.lsp_definitions()
-          end, 'Goto Definition')
-          map('gr', function()
-            Snacks.picker.lsp_references()
-          end, 'Goto References')
-          map('gi', function()
-            Snacks.picker.lsp_implementations()
-          end, 'Goto Implementation')
-          map('gt', function()
-            Snacks.picker.lsp_type_definitions()
-          end, 'Goto Type Defination')
-          map('<leader>ss', function()
-            Snacks.picker.lsp_symbols()
-          end, 'Search Lsp Symbols')
-          map('gD', function()
-            Snacks.picker.lsp_declarations()
-          end, 'Goto Declaration')
+          map(
+            'gd',
+            function() Snacks.picker.lsp_definitions() end,
+            'Goto Definition'
+          )
+          map(
+            'gr',
+            function() Snacks.picker.lsp_references() end,
+            'Goto References'
+          )
+          map(
+            'gi',
+            function() Snacks.picker.lsp_implementations() end,
+            'Goto Implementation'
+          )
+          map(
+            'gt',
+            function() Snacks.picker.lsp_type_definitions() end,
+            'Goto Type Defination'
+          )
+          map(
+            '<leader>ss',
+            function() Snacks.picker.lsp_symbols() end,
+            'Search Lsp Symbols'
+          )
+          map(
+            'gD',
+            function() Snacks.picker.lsp_declarations() end,
+            'Goto Declaration'
+          )
           map('<leader>ca', vim.lsp.buf.code_action, 'Code Actions')
           map('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
           map('<leader>cr', vim.lsp.buf.rename, 'Symbol Rename')

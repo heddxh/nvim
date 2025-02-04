@@ -116,9 +116,7 @@ return {
     keys = {
       {
         '<leader>?',
-        function()
-          require('which-key').show { global = false }
-        end,
+        function() require('which-key').show { global = false } end,
         desc = 'Buffer Local Keymaps (which-key)',
       },
     },
@@ -176,6 +174,7 @@ return {
           return {}
         end,
         xml = { 'xmllint' },
+        json = { 'jq' },
       },
     },
   },
@@ -198,15 +197,11 @@ return {
     keys = {
       {
         '\\',
-        function()
-          MiniFiles.open()
-        end,
+        function() MiniFiles.open() end,
       },
       {
         '<leader>\\',
-        function()
-          MiniFiles.open(vim.api.nvim_buf_get_name(0))
-        end,
+        function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end,
       },
     },
     config = function()
@@ -226,9 +221,7 @@ return {
   -- Auto toggle fcitx5
   {
     'lilydjwg/fcitx.vim',
-    init = function()
-      vim.g.fcitx5_remote = '/usr/bin/fcitx5-remote'
-    end,
+    init = function() vim.g.fcitx5_remote = '/usr/bin/fcitx5-remote' end,
   },
 
   -- Autopairs
@@ -278,7 +271,14 @@ return {
     'uga-rosa/translate.nvim',
     opts = {},
     cmd = 'Translate',
-    keys = { { '<leader>t', '<Cmd>Translate zh-CN<CR>', desc = 'Translate to zh-CN', mode = 'v' } },
+    keys = {
+      {
+        '<leader>t',
+        '<Cmd>Translate zh-CN<CR>',
+        desc = 'Translate to zh-CN',
+        mode = 'v',
+      },
+    },
   },
 
   {

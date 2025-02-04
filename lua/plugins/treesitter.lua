@@ -22,6 +22,7 @@ return {
       'fish',
       'toml',
       'xml',
+      'json',
     },
     auto_install = true,
     -- Internal mods
