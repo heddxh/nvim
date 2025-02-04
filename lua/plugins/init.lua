@@ -137,11 +137,11 @@ return {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>F',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
-        mode = '',
+        mode = { 'n', 'v' },
         desc = 'Format buffer',
       },
     },
@@ -174,11 +174,8 @@ return {
             apply = true,
           }
           return {}
-        end, -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        end,
+        xml = { 'xmllint' },
       },
     },
   },
