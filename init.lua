@@ -66,7 +66,7 @@ o.relativenumber = false
 o.jumpoptions = 'stack,view,clean'
 
 -- Disable mouse
-o.mouse = ''
+-- o.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 o.showmode = false
