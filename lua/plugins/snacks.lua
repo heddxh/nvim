@@ -16,12 +16,16 @@ return {
         sections = {
           {
             section = 'terminal',
-            cmd = 'chafa $HOME/.config/nvim/static/老八.PNG --clear -f symbols --symbols solid --align="top,center" ',
+            cmd = 'chafa $HOME/.config/nvim/static/Yanami.png --clear -f symbols --symbols solid --align="top,center" ',
             height = 22,
             ttl = 300,
           },
           {
-            { text = { { '  LOVE 2000  ', align = 'center', padding = 1 } } },
+            {
+              text = {
+                { '  LOVE 2000  ', align = 'center', padding = 1 },
+              },
+            },
             { text = { { '󰙣          󰙡', align = 'center' } } },
           },
           {
@@ -396,12 +400,25 @@ return {
           -- Create some toggle mappings
           Snacks.toggle.option('spell', { name = 'Spelling' }):map '<leader>ts'
           Snacks.toggle.option('wrap', { name = 'Wrap' }):map '<leader>tw'
-          Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '<leader>tL'
+          Snacks.toggle
+            .option('relativenumber', { name = 'Relative Number' })
+            :map '<leader>tL'
           Snacks.toggle.diagnostics():map '<leader>td'
           Snacks.toggle.line_number():map '<leader>tl'
-          Snacks.toggle.option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = 'Conceallevel' }):map '<leader>tc'
+          Snacks.toggle
+            .option('conceallevel', {
+              off = 0,
+              on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+              name = 'Conceallevel',
+            })
+            :map '<leader>tc'
           Snacks.toggle.treesitter():map '<leader>tT'
-          Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map '<leader>tb'
+          Snacks.toggle
+            .option(
+              'background',
+              { off = 'light', on = 'dark', name = 'Dark Background' }
+            )
+            :map '<leader>tb'
           Snacks.toggle.inlay_hints():map '<leader>th'
           Snacks.toggle.indent():map '<leader>tg'
           Snacks.toggle.dim():map '<leader>tD'
