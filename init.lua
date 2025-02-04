@@ -123,7 +123,16 @@ o.cursorline = true
 o.scrolloff = 10
 
 -- Vim session save
-o.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
+o.sessionoptions = {
+  'buffers',
+  'curdir',
+  'tabpages',
+  'winsize',
+  'help',
+  'globals',
+  'skiprtp',
+  'folds',
+}
 
 -- Default indent
 local indent = 4
@@ -166,7 +175,8 @@ map('v', '<C-l>', '<gv')
 
 -- Change indent
 _G.SetIndent = function()
-  local input_avail, input = pcall(vim.fn.input, 'Set indent value (>0 expandtab, <=0 noexpandtab): ')
+  local input_avail, input =
+    pcall(vim.fn.input, 'Set indent value (>0 expandtab, <=0 noexpandtab): ')
   if input_avail then
     local indent = tonumber(input)
     if not indent or indent == 0 then
@@ -187,7 +197,12 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     if vim.api.nvim_get_option_value('buflisted', { buf = ev.buf }) ~= true then
       return
     end
-    map('n', '<leader>ti', SetIndent, { desc = 'Change file indent', buffer = ev.buf })
+    map(
+      'n',
+      '<leader>ti',
+      SetIndent,
+      { desc = 'Change file indent', buffer = ev.buf }
+    )
   end,
 })
 
@@ -203,7 +218,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  local out = vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    '--branch=stable',
+    lazyrepo,
+    lazypath,
+  }
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },

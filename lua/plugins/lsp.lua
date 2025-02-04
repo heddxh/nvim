@@ -87,21 +87,22 @@ return {
       local servers = opts.servers
 
       -- Capabilities
-      local capabilities =
-        vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), require('blink.cmp').get_lsp_capabilities() or {}, opts.capabilities or {})
+      local capabilities = vim.tbl_deep_extend(
+        'force',
+        vim.lsp.protocol.make_client_capabilities(),
+        require('blink.cmp').get_lsp_capabilities() or {},
+        opts.capabilities or {}
+      )
 
       -- Diagnostics
-      if opts.diagnostics.signs and type(opts.diagnostics.signs) ~= 'boolean' then
-        for severity, icon in pairs(opts.diagnostics.signs.text) do
-          local name = vim.diagnostic.severity[severity]:lower():gsub('^%l', string.upper)
-          name = 'DiagnosticSign' .. name
-          vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
-        end
-      end
       vim.diagnostic.config(opts.diagnostics)
 
       local function setup(server)
-        local server_opts = vim.tbl_deep_extend('force', { capabilities = capabilities }, servers[server] or {})
+        local server_opts = vim.tbl_deep_extend(
+          'force',
+          { capabilities = capabilities },
+          servers[server] or {}
+        )
         if server_opts.enabled == false then -- disable the server
           return
         else
@@ -162,7 +163,12 @@ return {
           local map = function(keys, func, desc, mode)
             -- Key mapping
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set(
+              mode,
+              keys,
+              func,
+              { buffer = event.buf, desc = 'LSP: ' .. desc }
+            )
           end
           map('gd', function()
             Snacks.picker.lsp_definitions()
@@ -188,7 +194,12 @@ return {
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           -- Enable inlay hint by default.
-          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          if
+            client
+            and client:supports_method(
+              vim.lsp.protocol.Methods.textDocument_inlayHint
+            )
+          then
             vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
           end
         end,
@@ -199,7 +210,8 @@ return {
     'williamboman/mason.nvim',
     cmd = 'Mason',
     build = ':MasonUpdate',
-    opts_extend = { 'ensure_installed' }, -- https://github.com/folke/lazy.nvim/blob/7e6c863bc7563efbdd757a310d17ebc95166cef3/CHANGELOG.md?plain=1#L472
+    -- https://github.com/folke/lazy.nvim/blob/7e6c863bc7563efbdd757a310d17ebc95166cef3/CHANGELOG.md?plain=1#L472
+    opts_extend = { 'ensure_installed' },
     opts = {
       ensure_installed = {
         'stylua',
