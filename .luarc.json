@@ -1,5 +1,17 @@
 {
-    "diagnostics.globals": [
-        "Snacks"
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "ignoreDir": [
+      "lua/snippets"
     ]
+  },
+  "diagnostics.disable": [
+    "missing-fields"
+  ],
+  "diagnostics.globals": [
+    "Snacks"
+  ]
 }

@@ -2,7 +2,42 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 -- :lua require("neo-tree").paste_default_config()
 
-local config = {
+
+
+return {
+  'nvim-neo-tree/neo-tree.nvim',
+  version = '*',
+  enabled = false,
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'MunifTanjim/nui.nvim',
+  },
+  cmd = { 'Neotree' },
+  keys = {
+    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>\\', ':Neotree show %:p:h<CR>', desc = 'NeoTree show current file', silent = true },
+  },
+  init = function()
+    ---@source https://github.com/AstroNvim/AstroNvim/blob/284b87d5fee2c2c932e5cd4bbd78b6f613786e20/lua/astronvim/plugins/neo-tree.lua#L22-L36
+    vim.api.nvim_create_autocmd('BufEnter', {
+      group = vim.api.nvim_create_augroup('Neotree_start_directory', { clear = true }),
+      desc = 'Start Neo-tree with directory',
+      once = false,
+      callback = function()
+        if package.loaded['neo-tree'] then
+          return
+        else
+          local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(0))
+          if stats and stats.type == 'directory' then
+            require 'neo-tree'
+            return
+          end
+        end
+      end,
+    })
+  end,
+  opts = function()
+  local config = {
   -- If a user has a sources list it will replace this one.
   -- Only sources listed here will be loaded.
   -- You can also add an external source by adding it's name to this list.
@@ -719,40 +754,6 @@ local config = {
     },
   },
 }
-
-return {
-  'nvim-neo-tree/neo-tree.nvim',
-  version = '*',
-  enabled = false,
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'MunifTanjim/nui.nvim',
-  },
-  cmd = { 'Neotree' },
-  keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
-    { '<leader>\\', ':Neotree show %:p:h<CR>', desc = 'NeoTree show current file', silent = true },
-  },
-  init = function()
-    ---@source https://github.com/AstroNvim/AstroNvim/blob/284b87d5fee2c2c932e5cd4bbd78b6f613786e20/lua/astronvim/plugins/neo-tree.lua#L22-L36
-    vim.api.nvim_create_autocmd('BufEnter', {
-      group = vim.api.nvim_create_augroup('Neotree_start_directory', { clear = true }),
-      desc = 'Start Neo-tree with directory',
-      once = false,
-      callback = function()
-        if package.loaded['neo-tree'] then
-          return
-        else
-          local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(0))
-          if stats and stats.type == 'directory' then
-            require 'neo-tree'
-            return
-          end
-        end
-      end,
-    })
-  end,
-  opts = function()
     return vim.tbl_deep_extend('force', config, {
       filesystem = {
         window = {

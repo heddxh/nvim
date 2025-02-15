@@ -88,14 +88,20 @@ return {
             },
           },
         },
+        lemminx = {
+          settings = {
+            -- https://github.com/eclipse-lemminx/lemminx/issues/1287
+            xml = { catalogs = { vim.fn.stdpath 'data' .. '/xml/catalog.xml' } },
+          },
+        },
       },
     },
     config = function(_, opts)
-      local augroup = vim.api.nvim_create_augroup('lsp', { clear = true })
+      vim.diagnostic.config(opts.diagnostics)
 
+      local augroup = vim.api.nvim_create_augroup('lsp', { clear = true })
       local servers = opts.servers
 
-      -- Capabilities
       local capabilities = vim.tbl_deep_extend(
         'force',
         vim.lsp.protocol.make_client_capabilities(),
@@ -103,14 +109,11 @@ return {
         opts.capabilities or {}
       )
 
-      -- Diagnostics
-      vim.diagnostic.config(opts.diagnostics)
-
       local function setup(server)
         local server_opts = vim.tbl_deep_extend(
           'force',
           { capabilities = capabilities },
-          servers[server] or {}
+          servers[server] or {} -- override default capabilities
         )
         if server_opts.enabled == false then -- disable the server
           return
@@ -248,7 +251,15 @@ return {
     ft = 'lua',
     opts = {
       -- Load luvit types when the `vim.uv` word is found
-      library = { { path = 'luvit-meta/library', words = { 'vim%.uv' } } },
+      library = {
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        {
+          path = 'lazy.nvim',
+          words = { 'Lazy.*Spec' },
+          { path = 'LazyVim', words = { 'LazyVim' } },
+          { path = 'snacks.nvim', words = { 'Snacks' } },
+        },
+      },
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true }, -- for uv in nvim lua api

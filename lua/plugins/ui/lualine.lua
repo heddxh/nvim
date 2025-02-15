@@ -7,9 +7,7 @@
 ---@param hide_width number?
 ---@return boolean
 local function is_wide_enough(hide_width)
-  if not hide_width then
-    hide_width = 120
-  end
+  if not hide_width then hide_width = 120 end
   return vim.o.columns >= hide_width
 end
 
@@ -29,6 +27,7 @@ local function Showcmd()
   return cmd
 end
 
+---@type LazyPluginSpec
 return {
   'nvim-lualine/lualine.nvim',
   event = 'VeryLazy',
@@ -83,10 +82,13 @@ return {
           'filetype',
         },
         lualine_y = { 'location', 'progress' },
-        lualine_z = { 'mode', {
-          require('noice').api.status.mode.get,
-          cond = require('noice').api.status.mode.has,
-        } },
+        lualine_z = {
+          'mode',
+          {
+            require('noice').api.status.mode.get,
+            cond = require('noice').api.status.mode.has,
+          },
+        },
       },
     })
   end,
