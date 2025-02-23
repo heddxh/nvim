@@ -64,7 +64,9 @@ return {
         ['<C-j>'] = { 'scroll_documentation_down', 'fallback' },
         ['<C-l>'] = { 'snippet_forward', 'fallback' },
         ['<C-h>'] = { 'snippet_backward', 'fallback' },
-        cmdline = {
+      },
+      cmdline = {
+        keymap = {
           ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
           ['<S-Tab>'] = { 'select_prev', 'fallback' },
         },
